@@ -1,10 +1,14 @@
 FROM centos:centos7
 
+ENV PUBLIC_KEY_FILE=/tmp/public_key.pem
+ENV TF_VAR_private_key_file=/tmp/private_key.pem
+ENV TF_VAR_terraform_s3=flowi-terraform
+
 RUN useradd -ms /bin/bash usr_terraform
 WORKDIR /home/usr_terraform
 
 RUN yum update -y && \
-    yum install unzip -y && \
+    yum install openssl unzip -y && \
     yum clean all
 
 RUN curl -O -L https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && \
@@ -23,6 +27,7 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 
 COPY . .
 
-RUN chown usr_terraform:usr_terraform -R /home/usr_terraform
+RUN chown usr_terraform:usr_terraform -R /home/usr_terraform && \
+    chmod +x *.sh
 
 USER usr_terraform

@@ -1,3 +1,5 @@
 .aws/
 .terraform.d/
 .terragrunt-cache/
+private_key.pem
+public_key.pem

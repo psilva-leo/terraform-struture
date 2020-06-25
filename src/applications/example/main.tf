@@ -2,8 +2,13 @@
 module "ssm" {
   source = "/home/usr_terraform/src/modules/ssm"
   name   = var.project_name
-  value  = var.project_name
   environment = var.environment
+  value  = <<EOF
+{
+  "foo": "bar",
+  "db_host": "${rsadecrypt(var.db_host_vault, file(var.private_key_file))}"
+}
+EOF
 }
 
 output "ssm" {
