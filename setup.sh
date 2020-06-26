@@ -3,7 +3,8 @@
 
 download_file(){
     if ! test -f "$2"; then
-        aws s3 cp s3://$TF_VAR_terraform_s3-$TF_VAR_environment/$1 $2
+        echo s3://$TF_VAR_terraform_s3-$ENVIRONMENT/$1 $2
+        aws s3 cp s3://$TF_VAR_terraform_s3-$ENVIRONMENT/$1 $2
     fi
 }
 

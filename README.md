@@ -17,7 +17,7 @@ Docker
 Terraform runs on docker. The following command works on Power Shell. See "Encryption Variables" for CMD and linux bash commands difference.
 
 ```
-docker run --rm -it -v ${PWD}:/home/usr_terraform -e TF_VAR_environment=develop -e AWS_ACCESS_KEY_ID=$Env:AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$Env:AWS_SECRET_ACCESS_KEY terraform bash
+docker run --rm -it -v ${PWD}:/home/usr_terraform -e ENVIRONMENT=develop -e AWS_ACCESS_KEY_ID=$Env:AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$Env:AWS_SECRET_ACCESS_KEY terraform bash
 ```
 
 ## Creating pem Files
@@ -32,17 +32,17 @@ To encrypt a phrase depends on the command line inteface.
 
 ### Power Shell
 ```
-docker run --rm -e TF_VAR_environment=develop -e AWS_ACCESS_KEY_ID=$Env:AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$Env:AWS_SECRET_ACCESS_KEY terraform ./encrypt.sh <value_to_encrypt>
+docker run --rm -e ENVIRONMENT=develop -e AWS_ACCESS_KEY_ID=$Env:AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$Env:AWS_SECRET_ACCESS_KEY terraform ./encrypt.sh <value_to_encrypt>
 ```
 
 ### CMD
 ```
-docker run --rm -e TF_VAR_environment=develop -e AWS_ACCESS_KEY_ID=%AWS_ACCESS_KEY_ID% -e AWS_SECRET_ACCESS_KEY=%AWS_SECRET_ACCESS_KEY% terraform ./encrypt.sh <value_to_encrypt>
+docker run --rm -e ENVIRONMENT=develop -e AWS_ACCESS_KEY_ID=%AWS_ACCESS_KEY_ID% -e AWS_SECRET_ACCESS_KEY=%AWS_SECRET_ACCESS_KEY% terraform ./encrypt.sh <value_to_encrypt>
 ```
 
 ### Linux Bash
 ```
-docker run --rm -e TF_VAR_environment=develop -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY terraform ./encrypt.sh <value_to_encrypt>
+docker run --rm -e ENVIRONMENT=develop -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY terraform ./encrypt.sh <value_to_encrypt>
 ```
 
 ## Deployment

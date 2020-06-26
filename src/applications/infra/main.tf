@@ -1,3 +1,4 @@
+# Run once in only one region
 module "defaults" {
   source = "/home/usr_terraform/src/modules/defaults"
   environment = var.environment

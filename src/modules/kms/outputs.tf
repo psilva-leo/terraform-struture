@@ -1,3 +1,3 @@
 output "arn" {
-  value = "${aws_kms_alias.alias.arn}"
+  value = "${aws_kms_key.kms.arn}"
 }
