@@ -2,6 +2,10 @@ variable "environment" {
   description = "Environment name (e.g. develop, qa, prod)" 
 }
 
+variable "aws_region" {
+  description = "Region name (e.g. sa-east-1, us-east-1)" 
+}
+
 variable "private_key_file" {
   description = "Private encryption key file path" 
 }

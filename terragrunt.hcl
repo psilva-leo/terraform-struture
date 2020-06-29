@@ -1,8 +1,9 @@
 locals {
-  # Automatically load region-level variables
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
   region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
   # Extract the variables we need for easy access
+  environment = local.environment_vars.locals.environment
   aws_region   = local.region_vars.locals.aws_region
 }
 
@@ -22,7 +23,7 @@ remote_state {
   backend = "s3"
   config = {
     encrypt        = true
-    bucket         = "${get_env("TF_VAR_terraform_s3", "")}-${get_env("ENVIRONMENT", "")}"
+    bucket         = "${get_env("TF_VAR_terraform_s3", "")}-${local.environment}"
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = local.aws_region
   }

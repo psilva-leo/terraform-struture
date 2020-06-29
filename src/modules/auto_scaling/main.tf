@@ -8,6 +8,7 @@ module "launch_configuration" {
   name = var.name
   environment = var.environment
   instance_type = var.instance_type
+  associate_public_ip_address = var.associate_public_ip_address
 }
 
 resource "aws_autoscaling_group" "asg" {
@@ -17,7 +18,7 @@ resource "aws_autoscaling_group" "asg" {
   health_check_type = "EC2"
 
   launch_configuration = module.launch_configuration.id
-  vpc_zone_identifier  = module.defaults.default_vpc_private_subnets
+  vpc_zone_identifier  = module.defaults.default_vpc_public_subnets
 
   tag {
     key                 = "foo"

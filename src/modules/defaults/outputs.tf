@@ -19,9 +19,23 @@ output "s3_name_prefix" {
 output "launch_configuration_name_prefix" {
   value = "${var.service_name_prefix}"
 }
+
 output "asg_name_prefix" {
   value = "${var.service_name_prefix}"
 }
+
+output "policy_name_prefix" {
+  value = "${var.policy_name_prefix}"
+}
+
+output "role_name_prefix" {
+  value = "${var.role_name_prefix}"
+}
+
+output "ec2_role_name" {
+  value = "EC2Execution"
+}
+
 
 ## S3 Logging default
 output "log_bucket_name" {
@@ -29,7 +43,7 @@ output "log_bucket_name" {
 }
 
 output "ssm_key_name" {
-  value = "alias/ssm-key"
+  value = "alias/ssm"
 }
 
 

@@ -46,7 +46,8 @@ module "auto_scaling" {
   environment = var.environment
   max_size = var.asg_max_size[var.environment]["us-east-1"]
   min_size = var.asg_min_size[var.environment]["us-east-1"]
-  instance_type = "t3.nano"
+  instance_type = "t3a.nano"
+  associate_public_ip_address = true
 }
 
 output "launch_configuration" {

@@ -19,4 +19,5 @@ locals {
 
 inputs = {
   environment = local.environment
+  aws_region = local.aws_region
 }

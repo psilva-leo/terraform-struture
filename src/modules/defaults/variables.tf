@@ -12,6 +12,15 @@ variable "service_name_prefix" {
     default = "flowi-"
 }
 
+variable "policy_name_prefix" {
+  description = "Policy name prefix"
+  default = "policy-"
+}
+
+variable "role_name_prefix" {
+  description = "Role name prefix"
+  default = "role-"
+}
 
 locals {
   naming_sufix = "-${var.environment}"

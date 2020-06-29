@@ -21,3 +21,43 @@ module "s3" {
 output "s3" {
   value = module.s3.arn
 }
+
+
+module "iam_policy" {
+  source = "/home/usr_terraform/src/modules/iam_policy"
+  name = module.defaults.ec2_role_name
+  environment = var.environment
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "ec2:CreateTags"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Action": [
+        "iam:ListAccountAlias",
+        "sts:GetCallerIdentity"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+
+module "iam" {
+  source = "/home/usr_terraform/src/modules/iam_role"
+  name = module.defaults.ec2_role_name
+  role_use_case = "ec2"
+  environment = var.environment
+  policies = [module.iam_policy.arn]
+}
