@@ -1,7 +1,7 @@
 
 module "ssm" {
   source = "/home/usr_terraform/src/modules/ssm"
-  name   = var.project_name
+  name   = local.project_name
   environment = var.environment
   value  = <<EOF
 {
@@ -18,7 +18,7 @@ output "ssm" {
 
 module "sqs" {
   source      = "/home/usr_terraform/src/modules/sqs"
-  name        = var.project_name
+  name        = local.project_name
   environment = var.environment
 }
 
@@ -27,29 +27,30 @@ output "sqs" {
 }
 
 
+# only creates the S3 bucket for the main application. Subprojects should use the same bucket
 module "s3" {
+  count = var.sub_project_name == "" ? 1 : 0
   source = "/home/usr_terraform/src/modules/s3"
-  name = var.project_name
+  name = local.project_name
   # is_log_bucket = false
   environment = var.environment
 }
 
-output "s3" {
-  value = module.s3.arn
-}
-
-
 
 module "auto_scaling" {
   source = "/home/usr_terraform/src/modules/auto_scaling"
-  name = var.project_name
+  name = local.project_name
   environment = var.environment
-  max_size = var.asg_max_size[var.environment]["us-east-1"]
-  min_size = var.asg_min_size[var.environment]["us-east-1"]
+  max_size = var.asg_max_size[var.environment][var.aws_region]
+  min_size = var.asg_min_size[var.environment][var.aws_region]
   instance_type = "t3a.nano"
   associate_public_ip_address = true
 }
 
-output "launch_configuration" {
-  value = module.auto_scaling.arn
+module "ecs" {
+  source = "/home/usr_terraform/src/modules/ecs"
+  name = local.project_name
+  sub_project_name = var.sub_project_name
+  environment = var.environment
+  aws_region = var.aws_region
 }

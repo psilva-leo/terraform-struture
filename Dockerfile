@@ -11,9 +11,9 @@ RUN yum update -y && \
     yum install openssl unzip -y && \
     yum clean all
 
-RUN curl -O -L https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip && \
-    unzip ./terraform_0.12.26_linux_amd64.zip -d /usr/local/bin/ && \
-    rm terraform_0.12.26_linux_amd64.zip
+RUN curl -o terraform.zip -L https://releases.hashicorp.com/terraform/0.13.0-beta3/terraform_0.13.0-beta3_linux_amd64.zip && \
+    unzip ./terraform.zip -d /usr/local/bin/ && \
+    rm terraform.zip
 
 RUN curl -O -L https://github.com/gruntwork-io/terragrunt/releases/download/v0.23.2/terragrunt_linux_amd64 && \
     chmod +x terragrunt_linux_amd64 && \

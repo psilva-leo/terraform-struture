@@ -43,7 +43,7 @@ output "log_bucket_name" {
 }
 
 output "ssm_key_name" {
-  value = "alias/ssm"
+  value = "alias/ssmkey"
 }
 
 

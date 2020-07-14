@@ -1,3 +1,4 @@
+## Environment Variables ##
 variable "environment" {
   description = "Environment name (e.g. develop, qa, prod)" 
 }
@@ -10,10 +11,23 @@ variable "private_key_file" {
   description = "Private encryption key file path" 
 }
 
-variable "project_name" {
+
+
+## Project Name Variables ##
+
+variable "main_project_name" {
   description = "Project name without prefix or sufix (e.g. backend, front)"
-  default = "example"
+  default = "backend"
 }
+
+variable "sub_project_name" {
+  description = "SubProject name. If a project has several deploys with diferent names (e.g. backend-api, front-api) the subproject is api"
+  default = ""
+}
+
+
+
+## Module Variables ##
 
 variable "db_host_vault" {
   description = "Encrypted db host"
@@ -38,4 +52,10 @@ variable "asg_max_size" {
       "sa-east-1" = 5
     }
   }
+}
+
+
+
+locals {
+  project_name = "${var.main_project_name}${var.sub_project_name == "" ? "" : "-${var.sub_project_name}"}"
 }

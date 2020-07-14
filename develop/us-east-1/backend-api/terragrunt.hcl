@@ -1,5 +1,5 @@
 terraform {
-  source = "/home/usr_terraform/src/applications/example"
+  source = "/home/usr_terraform/src/applications/backend"
 }
 
 include {
@@ -20,4 +20,5 @@ locals {
 inputs = {
   environment = local.environment
   aws_region = local.aws_region
+  sub_project_name = "api"
 }
